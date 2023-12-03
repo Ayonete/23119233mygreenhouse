@@ -1,4 +1,4 @@
-from .models import Crop
+from .models import Crop, Diagnostics
 from django.forms import ModelForm
 from django import forms
 
@@ -19,14 +19,12 @@ class EditCropForm(ModelForm):
              #'image': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-# class RunDiagnosticsForm(ModelForm):
-    
-#     class Meta:
-#         model = Diagnostics
-#         fields = '__all__'
-#         widgets = {
-#             'name': forms.TextInput(attrs={'class': 'form-control'}),
-#              'description': forms.TextInput(attrs={'class': 'form-control'}),
-#              'temperature': forms.TextInput(attrs={'class': 'form-control'}),
-#              'moisture': forms.TextInput(attrs={'class': 'form-control'}),
-#         }
+class DiagnosticsForm(forms.ModelForm):
+    class Meta:
+        model = Diagnostics
+        fields = ['crop_name','appearance', 'leaf_age']
+        widgets = {
+            'crop_type': forms.TextInput(attrs={'class': 'form-control'}),
+            'appearance': forms.Select(attrs={'class': 'form-control'}),
+            'leaf_age': forms.Select(attrs={'class': 'form-control'}),
+        }

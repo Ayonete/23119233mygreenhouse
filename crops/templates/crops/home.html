@@ -45,7 +45,8 @@
                         <div class="card-body">
                             <!-- this is the crop title -->
                             <h4 class="card-text">{{ crop.name }}</h4>
-                            <quote>{{ crop.description }}</quote>
+                            <blockquote>{{ crop.description|truncatechars:50 }}</blockquote>
+
                         </div>
                         <a href="{% url 'crop-detail' crop.id %}" class="m-2 btn btn-outline-dark btn-sm">Show Details</a>
                     </div>

@@ -1,0 +1,45 @@
+{% extends 'crops/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <a href="{% url 'home' %}" class="my-3 btn btn-dark btn-sm">Go Back</a>
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <!-- the form for adding a crop -->
+                <form method="POST" enctype="multipart/form-data" action="">
+                    <!-- this is for securing the form from malicious attacks -->
+                    {% csrf_token %}
+                    <!-- this is the label and input for the Title -->
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Crop Name</label>
+                        <input required type="text" name="name" class="form-control" placeholder="Enter Crop Name">
+                    </div>
+                    <!-- this is the label and input for the Description -->
+                    <div class="mb-3">
+                        <label class="form-label font-weight-bold">Leaf Appearance</label>
+                        <select required name="appearance" class="form-control">
+                            <option value="">--Select Leaf Appearance--</option>
+                            <option value="Healthy">Healthy</option>
+                            <option value="Spotted">Yellow Spotted</option>
+                            <option value="Discolored">Yellow</option>
+                            <option value="Wilted">Purplish</option>
+                        </select>
+                    </div>
+                    <!-- this is the label and input for the Price -->
+                    <div class="mb-3">
+                    <label class="form-label font-weight-bold">Leaf Age</label>
+                    <select required name="leaf_age" class="form-control">
+                        <option value="">--Select Leaf Age--</option>
+                        <option value="Young">Young</option>
+                        <option value="Mature">Mature</option>
+                        <option value="Old">Old</option>
+                    </select>
+                </div>
+                    <button type="submit" class="btn btn-success btn-block mb-4">RUN HEALTH CHECK</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

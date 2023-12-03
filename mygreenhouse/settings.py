@@ -128,3 +128,5 @@ MEDIA_ROOT = BASE_DIR + '/static/'
 
 # The application will find all the static files in the base static folder
 STATICFILES_DIRS = [ BASE_DIR + '/static' ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Crop
-from .forms import EditCropForm
+from .forms import EditCropForm, DiagnosticsForm
 
 # this is a view for listing all the crops
 def home(request):
@@ -60,5 +60,14 @@ def delete_crop(request, id):
     context = {'crop': crop}
     return render(request, 'crops/delete-crop.html', context)
 
+
 def diagnostics(request):
-    return HttpResponse("It works")
+    if request.method == 'POST':
+        form = DiagnosticsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('While we work on making this page more dynamic, please check your email for the results of your diagnostic check. Happy Planting!')
+    else:
+        form = DiagnosticsForm()
+
+    return render(request, 'crops/diagnostics.html', {'form': form})
