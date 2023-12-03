@@ -119,3 +119,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# all images will be located in the images folder inside static folder
+MEDIA_URL = '/images/'
+
+# The application will find all the image files in the base static folder
+MEDIA_ROOT = BASE_DIR / 'static/'
+
+# The application will find all the static files in the base static folder
+STATICFILES_DIRS = [ BASE_DIR / 'static' ]
