@@ -5,20 +5,33 @@
 {% load static %}
 
 {% block content %}
-<div class="container mb-4">
-    <div class="row">
+    <div class="container mb-4">
+        <div class="row">
+            <div class="container mb-4">
+        <!-- Logo image at the top center -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <!--<img src="{% static 'images/greenhouse-logo.png' %}" width = 250px height= 250px alt="Logo" class="img-fluid my-3">-->
+                <h1> </h1><br>
+                <h2>WELCOME TO YOUR GREENHOUSE!</h2>
+            </div>
+        </div>
+        
+        <div class="row">
         <!-- side navbar here -->
         <div class="col-md-3 mt-3">
             <div class="card">
-                <h4 class="card-header px-3">Menu</h4>
+                <!--<h4 class="card-header px-3">Menu</h4>-->
+                <img src="{% static 'images/greenhouse-logo.png' %}" width = 250px height= 250px alt="Logo" class="img-fluid my-3">
                 <ul class="list-group list-group-light list-group-small">
                     <li class="list-group-item px-3"><a href="">Home</a></li>
                 </ul>
                 <a href="{% url 'add-crop' %}" class="m-2 btn btn-dark btn-sm">New Crop</a>
-                <a href="" class="m-2 btn btn-dark btn-sm">Run Quick Diagnostics Check</a>
+                <a href="{%url 'diagnostics'%}" class="m-2 btn btn-dark btn-sm">Run Quick Diagnostics Check</a>
             </div>
         </div>
         <!-- crops here -->
+        
         <div class="col-md-9 mt-3">
             <div class="row">
                 <!-- using a for loop to loop through all the crops -->

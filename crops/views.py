@@ -59,3 +59,6 @@ def delete_crop(request, id):
         return redirect('home')
     context = {'crop': crop}
     return render(request, 'crops/delete-crop.html', context)
+
+def diagnostics(request):
+    return HttpResponse("It works")

@@ -17,3 +17,7 @@ class Crop(models.Model):
     # this will order the crops by date created
     class Meta:
         ordering = ['-planted_on']
+        
+    
+# class Diagnostics(models.Model):
+#     apperance = models

@@ -13,4 +13,6 @@ urlpatterns = [
     path('edit-crop/<str:id>/', views.edit_crop, name='edit-crop'),
     # this is the delete crop url
     path('delete-crop/<str:id>/', views.delete_crop, name='delete-crop'),
+    #this is for the diagnostics
+    path('diagnostics/', views.diagnostics, name='diagnostics'),
 ]
