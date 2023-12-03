@@ -1,0 +1,21 @@
+{% extends 'crops/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="">
+                <a href="{% url 'home' %}" class="my-3 btn btn-dark btn-sm">Go Back</a>
+            </div>
+            <div style="height: 90vh">
+                <img class="img-fluid text-center" style="max-width: 100%; max-height: 100%" src="{{ crop.image.url }}" alt="image gone">
+                <h5 class="text-muted"> {{ crop.name }} </h5>
+                <small>Temperature: {{ crop.temperature }}</small><br>
+                <small>Moisture: {{ crop.moisture }}</small><br>
+                <a href="{% url 'edit-crop' crop.id %}" class="btn btn-success btn-sm">Update Details</a>
+                <a href="{% url 'delete-crop' crop.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

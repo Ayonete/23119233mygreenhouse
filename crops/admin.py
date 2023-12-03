@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Crops
+from .models import Crop
 
-admin.site.register(Crops)
+admin.site.register(Crop)
