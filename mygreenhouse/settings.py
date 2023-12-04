@@ -25,7 +25,7 @@ SECRET_KEY = '6e*e5+c@eq9g9c@+-vw(xig90p%@6o+03tx0*f)9p)h35rtjie'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['f61a8aa03bc8450a8bc9cb6b249ef7f4.vfs.cloud9.eu-west-1.amazonaws.com']
+ALLOWED_HOSTS = ['f61a8aa03bc8450a8bc9cb6b249ef7f4.vfs.cloud9.eu-west-1.amazonaws.com','http://23119233-mygreenhouse.s3-website-eu-west-1.amazonaws.com/']
 #ALLOWED_HOSTS = ['f61a8aa03bc8450a8bc9cb6b249ef7f4.vfs.cloud9.eu-west-1.amazonaws.com']
 
 # Application definition
