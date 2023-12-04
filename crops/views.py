@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Crop
 from .forms import EditCropForm, DiagnosticsForm
+from .crophealthlib import CropHealth, CareAdvice, NutrientDeficiencyDetector, rules
+from django.contrib import messages
 
 # this is a view for listing all the crops
 def home(request):
@@ -31,22 +33,34 @@ def add_crop(request):
         return redirect('home')
     return render(request, 'crops/add-crop.html')
 
-# this is a view for editing the crop's info
+
 def edit_crop(request, id):
     crop = Crop.objects.get(pk=id)
-    
-    form = EditCropForm(instance=crop)
     
     if request.method == 'POST':
         form = EditCropForm(request.POST, request.FILES, instance=crop)
         
         if form.is_valid():
             form.save()
+            
+            # Perform health analysis to decide the message
+            moisture = form.cleaned_data.get('moisture')
+            temperature = form.cleaned_data.get('temperature')
+            crop_health = CropHealth(moisture, temperature)
+            health_status = crop_health.analyse_health()
+
+            # Add a message
+            messages.info(request, health_status)
+            
+            # Redirect to the same page or to the home page
             return redirect('home')
+    else:
+        form = EditCropForm(instance=crop)
+
     context = {'form': form}
     return render(request, 'crops/update-crop.html', context)
-    
-# this is a view for deleting a crop,it will take id as an argument
+
+
 # this is a view for deleting a book
 def delete_crop(request, id):
     # getting the book to be deleted

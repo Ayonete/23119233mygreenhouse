@@ -1,11 +1,23 @@
 {% extends 'crops/base.html' %}
 {% block content %}
+
 <div class="row justify-content-center">
     <div class="col-md-4">
         <a href="{% url 'home' %}" class="my-3 btn btn-dark btn-sm">Go Back</a>
         <div class="card shadow-lg">
             <div class="card-body">
-                <!-- the form for adding a book -->
+                <!-- Display messages here -->
+                {% if messages %}
+                    <div id="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-info">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- the form for editing a crop -->
                 <form method="POST" enctype="multipart/form-data" action="">
                     <!-- this is for securing the form from malicious attacks -->
                     {% csrf_token %}
@@ -17,4 +29,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
