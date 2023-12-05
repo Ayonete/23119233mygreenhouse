@@ -80,8 +80,8 @@ def diagnostics(request):
         form = DiagnosticsForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse('While we work on making this page more dynamic, please check your email for the results of your diagnostic check. Happy Planting!')
+            #return HttpResponse('While we work on making this page more dynamic, please check your email for the results of your diagnostic check. Happy Planting!')
     else:
         form = DiagnosticsForm()
-
-    return render(request, 'crops/diagnostics.html', {'form': form})
+    return HttpResponse('nothing for now, check back later')
+    #return render(request, 'crops/diagnostics.html', {'form': form})
