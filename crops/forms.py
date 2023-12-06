@@ -17,7 +17,8 @@ class EditCropForm(ModelForm):
              'description': forms.TextInput(attrs={'class': 'form-control'}),
              'temperature': forms.TextInput(attrs={'class': 'form-control'}),
              'moisture': forms.TextInput(attrs={'class': 'form-control'}),
-             #'image': forms.TextInput(attrs={'class': 'form-control'}),
+             'image': forms.TextInput(attrs={'class': 'form-control'}),
+             'planted_on': forms.DateTimeInput(attrs={'class': 'form-control'})
         }
 
 class DiagnosticsForm(ModelForm):
