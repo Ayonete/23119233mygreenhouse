@@ -26,7 +26,7 @@ class Crop(models.Model):
     
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
-    planted_on = models.TextField(max_length=200, default="20/20/20")
+    #planted_on = models.TextField(max_length=200, default="20/20/20")
     image = models.ImageField(null=False, blank=False, upload_to='images/')
     temperature = models.DecimalField(max_digits=4, decimal_places=2)
     moisture = models.DecimalField(max_digits=4, decimal_places=2)
@@ -50,7 +50,7 @@ class Crop(models.Model):
         table.put_item(
             Item={
                 'name': self.name,
-                'planted_on': self.planted_on,
+                #'planted_on': self.planted_on,
                 'description': self.description,
                 'temperature': str(self.temperature),  # Convert DecimalField to string
                 'moisture': str(self.moisture),   

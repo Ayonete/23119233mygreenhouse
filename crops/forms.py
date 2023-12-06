@@ -14,7 +14,7 @@ class EditCropForm(ModelForm):
         # styling the form with bootstrap classes
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'planted_on': forms.TextInput(attrs={'class': 'form-control'}),
+            #'planted_on': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'temperature': forms.NumberInput(attrs={'class': 'form-control'}),
             'moisture': forms.NumberInput(attrs={'class': 'form-control'}),

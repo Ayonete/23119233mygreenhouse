@@ -26,7 +26,7 @@ def add_crop(request):
         
         crop = Crop.objects.create(
             name = data['name'],
-            planted_on = data['planted_on'],
+            #planted_on = data['planted_on'],
             description = data['description'],
             temperature = data['temperature'],
             moisture = data['moisture'],
