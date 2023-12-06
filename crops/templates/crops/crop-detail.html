@@ -14,8 +14,9 @@
                 <quote>{{ crop.description }}</quote><br>
                 <small><b>Last Recorded Temperature:</b>{{crop.temperature}}</small><br>
                 <small><b>Last Recorded Moisture:</b> {{ crop.moisture }}</small><br>
-                <a href="{% url 'edit-crop' crop.id %}" class="btn btn-success btn-sm">Update Details</a>
-                <a href="{% url 'delete-crop' crop.id %}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{% url 'diagnostics' %}" class="btn btn-outline-dark btn-sm">Run Diagnostics</a><br>
+                <a href="{% url 'edit-crop' crop.id %}" class="btn btn-success btn-sm">Update Details</a><br>
+                <a href="{% url 'delete-crop' crop.id %}" class="btn btn-danger btn-sm">Delete</a><br>
                 
             </div>
         </div>

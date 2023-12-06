@@ -36,18 +36,6 @@ class Diagnostics(models.Model):
         ('OLD', 'Old'),
     ]
 
-    appearance = models.CharField(
-        max_length=7,
-        choices=APPEARANCE_CHOICES,
-        default='HEALTHY',
-    )
+    appearance = models.CharField(max_length=7, choices=APPEARANCE_CHOICES, default='HEALTHY')
 
-    leaf_age = models.CharField(
-        max_length=6,
-        choices=LEAF_AGE_CHOICES,
-        default='MATURE',
-    )
-
-
-    def __str__(self):
-        return f"Appearance: {self.get_appearance_display()}, Leaf Age: {self.get_leaf_age_display()}"
+    leaf_age = models.CharField(max_length=6, choices=LEAF_AGE_CHOICES, default='MATURE')
