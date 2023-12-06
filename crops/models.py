@@ -53,7 +53,9 @@ class Crop(models.Model):
                     'planted_on': self.planted_on,
                     'description': self.description,
                     'temperature': str(self.temperature),  # Convert DecimalField to string
-                    'moisture': str(self.moisture),        # Convert DecimalField to string
+                    'moisture': str(self.moisture),   
+                    'image': self.image
+                    # Convert DecimalField to string
                 }
             )
         except Exception as e:
