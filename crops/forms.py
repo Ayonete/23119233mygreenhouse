@@ -13,12 +13,12 @@ class EditCropForm(ModelForm):
         fields = '__all__'
         # styling the form with bootstrap classes
         widgets = {
-             'name': forms.TextInput(attrs={'class': 'form-control'}),
-             'description': forms.TextInput(attrs={'class': 'form-control'}),
-             'temperature': forms.TextInput(attrs={'class': 'form-control'}),
-             'moisture': forms.TextInput(attrs={'class': 'form-control'}),
-             'image': forms.TextInput(attrs={'class': 'form-control'}),
-             'planted_on': forms.DateTimeInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'temperature': forms.NumberInput(attrs={'class': 'form-control'}),
+            'moisture': forms.NumberInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'planted_on': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
         }
 
 class DiagnosticsForm(ModelForm):

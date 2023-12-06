@@ -4,6 +4,7 @@ from .models import Crop
 from .forms import EditCropForm, DiagnosticsForm
 from .crophealthlib import CropHealth, CareAdvice, NutrientDeficiencyDetector, rules
 from django.contrib import messages
+from django.utils.dateparse import parse_datetime
 
 # this is a view for listing all the crops
 def home(request):
@@ -28,7 +29,9 @@ def add_crop(request):
             description = data['description'],
             temperature = data['temperature'],
             moisture = data['moisture'],
-            image = image
+            image = image,
+            planted_on = parse_datetime(data.get('planted_on'))
+            
             )
         return redirect('home')
     return render(request, 'crops/add-crop.html')
