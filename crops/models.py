@@ -20,6 +20,8 @@
 #         ordering = ['-planted_on']
 from django.db import models
 import boto3
+from boto3 import resource
+
 
 class Crop(models.Model):
     name = models.CharField(max_length=100)
@@ -35,12 +37,13 @@ class Crop(models.Model):
     class Meta:
         ordering = ['name']
 
+
     def save(self, *args, **kwargs):
         # Save the instance as usual
         super(Crop, self).save(*args, **kwargs)
-
+        
         # Insert record into DynamoDB
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id= 'ASIA5NI3FLPMG7WXKD5I',  aws_secret_access_key = 'TjsEkHEAVT0RQOxBvp4WqKVpiYH5bOnPRS62pPnB')
         table = dynamodb.Table('23119233-greenhouse-records')
         print(table)
         try:
