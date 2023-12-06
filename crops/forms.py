@@ -17,8 +17,7 @@ class EditCropForm(ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
             'temperature': forms.NumberInput(attrs={'class': 'form-control'}),
             'moisture': forms.NumberInput(attrs={'class': 'form-control'}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}),
-            'planted_on': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'})
         }
 
 class DiagnosticsForm(ModelForm):

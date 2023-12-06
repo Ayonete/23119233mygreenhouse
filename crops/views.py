@@ -29,8 +29,7 @@ def add_crop(request):
             description = data['description'],
             temperature = data['temperature'],
             moisture = data['moisture'],
-            image = image,
-            planted_on = parse_datetime(data.get('planted_on'))
+            image = image
             
             )
         return redirect('home')

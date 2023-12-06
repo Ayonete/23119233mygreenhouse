@@ -27,13 +27,12 @@ class Crop(models.Model):
     image = models.ImageField(null=False, blank=False, upload_to='images/')
     temperature = models.DecimalField(max_digits=4, decimal_places=2)
     moisture = models.DecimalField(max_digits=4, decimal_places=2)
-    planted_on = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'
 
     class Meta:
-        ordering = ['-planted_on']
+        ordering = ['name']
 
     def save(self, *args, **kwargs):
         # Save the instance as usual
