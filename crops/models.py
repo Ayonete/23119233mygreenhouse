@@ -22,7 +22,6 @@ from django.db import models
 import boto3
 from boto3 import resource
 
-
 class Crop(models.Model):
     
     name = models.CharField(max_length=100)
@@ -37,7 +36,28 @@ class Crop(models.Model):
 
     class Meta:
         ordering = ['name']
-
+    
+    def save(self, *args, **kwargs):
+        super(Crop, self).save(*args, **kwargs)
+        dynamodb = boto3.resource('dynamodb')
+        resources = resource('dynamodb',
+                               aws_access_key_id     = 'ASIA5NI3FLPMG7WXKD5I',
+                               aws_secret_access_key = 'TjsEkHEAVT0RQOxBvp4WqKVpiYH5bOnPRS62pPnB',
+                               region_name           = 'us-east-1'
+       )      
+       
+        table = dynamodb.Table('23119233-greenhouse-records')
+        table.put_item(
+            Item={
+                'name': self.name,
+                'planted_on': self.planted_on,
+                'description': self.description,
+                'temperature': str(self.temperature),  # Convert DecimalField to string
+                'moisture': str(self.moisture),   
+                'image': self.image
+                # Convert DecimalField to string
+            }
+        )
 
     # def save(self, *args, **kwargs):
     #     # Save the instance as usual
