@@ -24,6 +24,7 @@ import boto3
 class Crop(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
+    planted_on = models.TextField(max_length=200, default="20/20/20")
     image = models.ImageField(null=False, blank=False, upload_to='images/')
     temperature = models.DecimalField(max_digits=4, decimal_places=2)
     moisture = models.DecimalField(max_digits=4, decimal_places=2)
@@ -41,10 +42,12 @@ class Crop(models.Model):
         # Insert record into DynamoDB
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('23119233-greenhouse-records')
+        print(table)
         try:
             table.put_item(
                 Item={
                     'name': self.name,
+                    'planted_on': self.planted_on,
                     'description': self.description,
                     'temperature': str(self.temperature),  # Convert DecimalField to string
                     'moisture': str(self.moisture),        # Convert DecimalField to string
@@ -53,10 +56,6 @@ class Crop(models.Model):
         except Exception as e:
         # Handle the exception (log it, alert, etc.)
             print(f"Error inserting record into DynamoDB: {e}")
-        # Send email notification
-        # Replace 'send_email_notification' with your actual function to send emails
-        # send_email_notification(f'New crop added: {self.name}')
-      
     
 class Diagnostics(models.Model):
     # Dropdown choices for 'appearance'
