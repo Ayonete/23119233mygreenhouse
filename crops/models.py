@@ -19,7 +19,7 @@ class Crop(models.Model):
         super(Crop, self).save(*args, **kwargs)
         
         # Insert record into DynamoDB
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = boto3.resource('dynamodb', region_name ='us-east-1')
         table = dynamodb.Table('23119233-greenhouse-records')
         try:
             table.put_item(
@@ -32,21 +32,6 @@ class Crop(models.Model):
             )
         except Exception as e:
             print(f"Error: {e}")
-
-            # Check if the temperature is above 50 and send SNS Notification
-        #     if self.temperature > 50:
-        #         sns_client = boto3.client('sns')
-        #         sns_topic_arn = 'arn:aws:sns:us-west-2:250738637992:23119233-Greenhous-notifications'
-        #         message = f"Temperature alert for {self.name}: {self.temperature}°C"
-        #         sns_client.publish(
-        #             TopicArn=sns_topic_arn,
-        #             Message=message,
-        #             Subject='Temperature Alert'
-        #         )
-        # except Exception as e:
-        #     print(f"Error: {e}")
-
-
     
 class Diagnostics(models.Model):
     # Dropdown choices for 'appearance'
