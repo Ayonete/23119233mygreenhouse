@@ -5,9 +5,10 @@ from .forms import EditCropForm, DiagnosticsForm
 from .crophealthlib import CropHealth, CareAdvice, NutrientDeficiencyDetector, rules
 from django.contrib import messages
 from django.utils.dateparse import parse_datetime
-from .utils import add_item_to_dynamodb, CropHealth
+from .utils import add_item_to_dynamodb, CropHealth, PlantDiagnosis
 from decimal import Decimal
 import boto3
+import json
 
 # Assuming you have AWS credentials configured, or you can provide them explicitly
 
@@ -75,9 +76,23 @@ def add_crop(request):
         CropHealth.publish_to_sns(TopicArn,'Crop Health Status', health_status)
         return redirect('home')
 
-       
-
     return render(request, 'crops/add-crop.html')
+
+
+def send_message_to_sqs(name, health_status):
+    # Initialize SQS client
+    sqs_client = boto3.client('sqs')
+    queue_url = 'https://sqs.eu-west-1.amazonaws.com/250738637992/23119233-queue'  # Replace with your SQS queue URL
+
+    # Construct message
+    message = {
+        'CropName': name,
+        'HealthStatus': health_status
+    }
+
+    # Send message to SQS queue
+    sqs_client.send_message(QueueUrl=queue_url, MessageBody=json.dumps(message))
+
 
 def edit_crop(request, id):
     crop = Crop.objects.get(pk=id)

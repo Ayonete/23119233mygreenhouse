@@ -34,22 +34,13 @@ class Crop(models.Model):
     #         print(f"Error: {e}")
     
 class Diagnostics(models.Model):
-    # Dropdown choices for 'appearance'
-    crop_name = models.CharField(max_length= 100)
-    APPEARANCE_CHOICES = [
-        ('SPOT', 'Spotted'),
-        ('YELLOW', 'Yellowing'),
-        ('WILT', 'Wilting'),
-        ('HEALTHY', 'Healthy'),
-    ]
+    name = models.CharField(max_length=100)
+    discoloration = models.CharField(max_length=100)
+    deformed = models.TextField(max_length=300)
+    region_affected = models.TextField(max_length=300)
+    
+    def __str__(self):
+        return f'{self.name}'
 
-    # Dropdown choices for 'leaf_age'
-    LEAF_AGE_CHOICES = [
-        ('YOUNG', 'Young'),
-        ('MATURE', 'Mature'),
-        ('OLD', 'Old'),
-    ]
-
-    appearance = models.CharField(max_length=7, choices=APPEARANCE_CHOICES, default='HEALTHY')
-
-    leaf_age = models.CharField(max_length=6, choices=LEAF_AGE_CHOICES, default='MATURE')
+    class Meta:
+        ordering = ['name']

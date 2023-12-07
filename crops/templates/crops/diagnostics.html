@@ -15,28 +15,21 @@
                         <label class="form-label font-weight-bold">Crop Name</label>
                         <input required type="text" name="name" class="form-control" placeholder="Enter Crop Name">
                     </div>
-                    <!-- this is the label and input for the Description -->
                     <div class="mb-3">
-                        <label class="form-label font-weight-bold">Leaf Appearance</label>
-                        <select required name="appearance" class="form-control">
-                            <option value="">--Select Leaf Appearance--</option>
-                            <option value="Healthy">Green</option>
-                            <option value="Spotted">Yellow Spotted</option>
-                            <option value="Discolored">Yellow</option>
-                            <option value="Wilted">Purplish</option>
-                        </select>
+                        <label class="form-label font-weight-bold">Discoloration?</label>
+                        <textarea required name="discoloration" class="form-control" placeholder="Purple, Yellow patches, None" rows="4"></textarea>
                     </div>
-                    <!-- this is the label and input for the Price -->
-                    <div class="mb-3">
-                    <label class="form-label font-weight-bold">Leaf Age</label>
-                    <select required name="leaf_age" class="form-control">
-                        <option value="">--Select Leaf Age--</option>
-                        <option value="Young">Young</option>
-                        <option value="Mature">Mature</option>
-                        <option value="Old">Old</option>
-                    </select>
-                </div>
-                    <button type="submit" class="mb-3 btn btn-success btn-block mb-4">RUN HEALTH CHECK</button>
+                     <div class="mb-3">
+                        <label class="form-label font-weight-bold">Any Deformities</label>
+                        <textarea required name="deformed" class="form-control" placeholder="Yes, No" rows="4"></textarea>
+                    </div>
+                     <div class="mb-3">
+                        <label class="form-label font-weight-bold">Region Affected</label>
+                        <textarea required name="region_affected" class="form-control" placeholder="All over, Old leaves, Young Leaves" rows="4"></textarea>
+                    </div>
+                   
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-success btn-block mb-4">RUN A CHECK</button>
                 </form>
             </div>
         </div>

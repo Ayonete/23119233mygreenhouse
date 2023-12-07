@@ -24,9 +24,10 @@ class EditCropForm(ModelForm):
 class DiagnosticsForm(ModelForm):
     class Meta:
         model = Diagnostics
-        fields = ['crop_name','appearance', 'leaf_age']
+        fields = ['name','discoloration', 'deformed','region_affected']
         widgets = {
-            'crop_type': forms.TextInput(attrs={'class': 'form-control'}),
-            'appearance': forms.Select(attrs={'class': 'form-control'}),
-            'leaf_age': forms.Select(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'discoloration': forms.TextInput(attrs={'class': 'form-control'}),
+            'deformed': forms.TextInput(attrs={'class': 'form-control'}),
+            'region_affected': forms.TextInput(attrs={'class': 'form-control'}),
         }
