@@ -30,7 +30,7 @@ def add_crop(request):
             description = data['description'],
             temperature = data['temperature'],
             moisture = data['moisture'],
-            image = image['image']
+            image = image
             
             )
         return redirect('home')
