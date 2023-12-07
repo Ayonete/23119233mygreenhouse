@@ -5,6 +5,11 @@ from .forms import EditCropForm, DiagnosticsForm
 from .crophealthlib import CropHealth, CareAdvice, NutrientDeficiencyDetector, rules
 from django.contrib import messages
 from django.utils.dateparse import parse_datetime
+from .utils import add_item_to_dynamodb, CropHealth
+from decimal import Decimal
+import boto3
+
+# Assuming you have AWS credentials configured, or you can provide them explicitly
 
 # this is a view for listing all the crops
 def home(request):
@@ -19,23 +24,60 @@ def crop_detail(request, id):
     return render(request, 'crops/crop-detail.html', context)
 
 # this is a list for adding a crop
+# def add_crop(request):
+#     if request.method == 'POST':
+#         data = request.POST
+#         image = request.FILES.get('image-file')
+        
+#         crop = Crop.objects.create(
+#             name = data['name'],
+#             #planted_on = data['planted_on'],
+#             description = data['description'],
+#             temperature = data['temperature'],
+#             moisture = data['moisture'],
+#             image = image
+            
+#             )
+
 def add_crop(request):
     if request.method == 'POST':
         data = request.POST
         image = request.FILES.get('image-file')
         
+        # Data validation and conversion (add checks as necessary)
+        name = data.get('name')
+        description = data.get('description')
+        moisture = data.get('moisture')    
+        temperature = data.get('temperature')
+        
+        # Create Crop instance
         crop = Crop.objects.create(
-            name = data['name'],
-            #planted_on = data['planted_on'],
-            description = data['description'],
-            temperature = data['temperature'],
-            moisture = data['moisture'],
-            image = image
-            
-            )
-        return redirect('home')
-    return render(request, 'crops/add-crop.html')
+            name=name,
+            description=description,
+            temperature=temperature,
+            moisture=moisture,
+            image=image
+        )
+        
+        # Add the data to DynamoDB
+        add_item_to_dynamodb(name, description, moisture, temperature)
+        
+        moisture = Decimal(data.get('moisture', '0'))
+        temperature = Decimal(data.get('temperature', '0'))
 
+        # Analyze crop health
+        crop_health = CropHealth(moisture, temperature)
+        health_status = crop_health.analyse_health()
+
+        # Send an email notification with health status
+        TopicArn='arn:aws:sns:eu-west-1:250738637992:23119233-GREENHOUSE'
+        
+        CropHealth.publish_to_sns(TopicArn,'Crop Health Status', health_status)
+        return redirect('home')
+
+       
+
+    return render(request, 'crops/add-crop.html')
 
 def edit_crop(request, id):
     crop = Crop.objects.get(pk=id)
@@ -75,19 +117,3 @@ def diagnostics(request):
     else:
         form = DiagnosticsForm()
     return render(request, 'crops/diagnostics.html', {'form': form})
-    
-    
-    # def diagnostics(request, id):
-    # crop = Crop.objects.get(pk=id)
-    
-    # form = EditCropForm(instance=crop)
-    #form = DiagnosticsForm(request.POST)
-    
-    # if request.method == 'POST':
-    #     form = EditCropForm(request.POST, request.FILES, instance=crop)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('home')
-            
-    # context = {'form': form}
-    # return render(request, 'crops/update-crop.html', context)

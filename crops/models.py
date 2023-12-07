@@ -14,24 +14,24 @@ class Crop(models.Model):
     class Meta:
         ordering = ['name']
 
-    def save(self, *args, **kwargs):
-        # Save the instance as usual
-        super(Crop, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     # Save the instance as usual
+    #     super(Crop, self).save(*args, **kwargs)
         
-        # Insert record into DynamoDB
-        dynamodb = boto3.resource('dynamodb', region_name ='us-east-1')
-        table = dynamodb.Table('23119233-greenhouse-records')
-        try:
-            table.put_item(
-                Item={
-                    'name': self.name,
-                    'description': self.description,
-                    'temperature': self.temperature,  # Convert DecimalField to string
-                    'moisture': self.moisture,        # Convert DecimalField to string
-                }
-            )
-        except Exception as e:
-            print(f"Error: {e}")
+    #     # Insert record into DynamoDB
+    #     dynamodb = boto3.resource('dynamodb', region_name ='us-east-1')
+    #     table = dynamodb.Table('23119233-greenhouse-records')
+    #     try:
+    #         table.put_item(
+    #             Item={
+    #                 'name': self.name,
+    #                 'description': self.description,
+    #                 'temperature': self.temperature,  # Convert DecimalField to string
+    #                 'moisture': self.moisture,        # Convert DecimalField to string
+    #             }
+    #         )
+    #     except Exception as e:
+    #         print(f"Error: {e}")
     
 class Diagnostics(models.Model):
     # Dropdown choices for 'appearance'
