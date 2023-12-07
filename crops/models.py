@@ -22,8 +22,8 @@ from django.db import models
 import boto3
 from boto3 import resource
 
+
 class Crop(models.Model):
-    
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=300)
     #planted_on = models.TextField(max_length=200, default="20/20/20")
@@ -36,52 +36,29 @@ class Crop(models.Model):
 
     class Meta:
         ordering = ['name']
-    
-    def save(self, *args, **kwargs):
-        super(Crop, self).save(*args, **kwargs)
-        dynamodb = boto3.resource('dynamodb')
-        resources = resource('dynamodb',
-                               aws_access_key_id     = 'ASIA5NI3FLPMG7WXKD5I',
-                               aws_secret_access_key = 'TjsEkHEAVT0RQOxBvp4WqKVpiYH5bOnPRS62pPnB',
-                               region_name           = 'us-east-1'
-       )      
-       
-        table = dynamodb.Table('23119233-greenhouse-records')
-        table.put_item(
-            Item={
-                'name': self.name,
-                #'planted_on': self.planted_on,
-                'description': self.description,
-                'temperature': str(self.temperature),  # Convert DecimalField to string
-                'moisture': str(self.moisture),   
-                'image': self.image
-                # Convert DecimalField to string
-            }
-        )
 
-    # def save(self, *args, **kwargs):
-    #     # Save the instance as usual
-    #     super(Crop, self).save(*args, **kwargs)
+ 
+    def save(self, *args, **kwargs):
+        # Save the instance as usual
+        super(Crop, self).save(*args, **kwargs)
         
-    #     # Insert record into DynamoDB
-    #     dynamodb = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id= 'ASIA5NI3FLPMG7WXKD5I',  aws_secret_access_key = 'TjsEkHEAVT0RQOxBvp4WqKVpiYH5bOnPRS62pPnB')
-    #     table = dynamodb.Table('23119233-greenhouse-records')
-    #     print(table)
-    #     try:
-    #         table.put_item(
-    #             Item={
-    #                 'name': self.name,
-    #                 'planted_on': self.planted_on,
-    #                 'description': self.description,
-    #                 'temperature': str(self.temperature),  # Convert DecimalField to string
-    #                 'moisture': str(self.moisture),   
-    #                 'image': self.image
-    #                 # Convert DecimalField to string
-    #             }
-    #         )
-    #     except Exception as e:
-    #     # Handle the exception (log it, alert, etc.)
-    #         print(f"Error inserting record into DynamoDB: {e}")
+        # Insert record into DynamoDB
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('23119233-greenhouse-records')
+        print(table)
+        try:
+            table.put_item(
+                Item={
+                    'name': self.name,
+                    #'planted_on': self.planted_on,
+                    'description': self.description,
+                    'temperature': str(self.temperature),  # Convert DecimalField to string
+                    'moisture': str(self.moisture),        # Convert DecimalField to string
+                }
+            )
+        except Exception as e:
+        # Handle the exception (log it, alert, etc.)
+            print(f"Error inserting record into DynamoDB: {e}")
     
 class Diagnostics(models.Model):
     # Dropdown choices for 'appearance'
