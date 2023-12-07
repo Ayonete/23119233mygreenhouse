@@ -1,7 +1,5 @@
 from django.db import models
 import boto3
-from boto3 import resource
-
 
 class Crop(models.Model):
     name = models.CharField(max_length=100)
@@ -28,21 +26,10 @@ class Crop(models.Model):
                 Item={
                     'name': self.name,
                     'description': self.description,
-                    'temperature': str(self.temperature),  # Convert DecimalField to string
-                    'moisture': str(self.moisture),        # Convert DecimalField to string
+                    'temperature': self.temperature,  # Convert DecimalField to string
+                    'moisture': self.moisture,        # Convert DecimalField to string
                 }
             )
-            
-              # Manually trigger SNS Notification
-            sns_client = boto3.client('sns')
-            sns_topic_arn = 'arn:aws:sns:us-west-2:250738637992:23119233-Greenhous-notifications'
-            message = f"Manual trigger for testing: A new crop record for {self.name} has been added."
-            response = sns_client.publish(
-                TopicArn=sns_topic_arn,
-                Message=message,
-                Subject='Manual SNS Trigger for Testing'
-            )
-            print(f"SNS Publish Response: {response}")
         except Exception as e:
             print(f"Error: {e}")
 
