@@ -10,7 +10,7 @@ from decimal import Decimal
 import boto3
 import json
 
-# Assuming you have AWS credentials configured, or you can provide them explicitly
+
 
 # this is a view for listing all the crops
 def home(request):
@@ -45,7 +45,7 @@ def add_crop(request):
         data = request.POST
         image = request.FILES.get('image-file')
         
-        # Data validation and conversion (add checks as necessary)
+        # Data validation and conversion 
         name = data.get('name')
         description = data.get('description')
         moisture = data.get('moisture')    
@@ -82,7 +82,7 @@ def add_crop(request):
 def send_message_to_sqs(name, health_status):
     # Initialize SQS client
     sqs_client = boto3.client('sqs')
-    queue_url = 'https://sqs.eu-west-1.amazonaws.com/250738637992/23119233-queue'  # Replace with your SQS queue URL
+    queue_url = 'https://sqs.eu-west-1.amazonaws.com/250738637992/23119233-queue'  
 
     # Construct message
     message = {
@@ -109,7 +109,7 @@ def edit_crop(request, id):
     return render(request, 'crops/update-crop.html', context)
 
 
-# this is a view for deleting a book
+# this is a view for deleting a crop
 def delete_crop(request, id):
     # getting the book to be deleted
     crop = Crop.objects.get(pk=id)
