@@ -1,19 +1,20 @@
-FROM python:3.12.2-slim-bullseye
+FROM python:3.12.2
 
-ENV PYTHONBUFFERED=1
+# ENV PYTHONBUFFERED=1
 
-ENV PORT=8080
+# ENV PORT=8080
 
 WORKDIR /app
 
-COPY . /app/
+COPY requirements.txt .
 
 RUN pip install --upgrade pip
 
-RUN pip install -r requirements.txt
-RUN python manage.py
+RUN pip install --no-cache-dir -r requirements.txt
+# RUN python manage.py migrate
 
-CMD mygreenhouse.wsgi:application --bind 0.0.0.0:"${PORT}"
+EXPOSE 8000
 
-EXPOSE ${PORT}
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
 
