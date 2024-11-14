@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE ${PORT}
 
-CMD mygreenhouse.wsgi:application", "--bind", "0.0.0.0:${PORT}"
+CMD mygreenhouse.wsgi:application --bind 0.0.0.0:"${PORT}"
