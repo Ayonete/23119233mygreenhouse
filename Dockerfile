@@ -4,7 +4,7 @@ FROM python:3.12.2
 
 # ENV PORT=8080
 
-WORKDIR /app
+WORKDIR /
 
 COPY requirements.txt .
 
