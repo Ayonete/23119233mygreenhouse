@@ -1,5 +1,5 @@
 from django.db import models
-import boto3
+#import boto3
 
 class Crop(models.Model):
     name = models.CharField(max_length=100)
@@ -34,10 +34,10 @@ class Crop(models.Model):
     #         print(f"Error: {e}")
     
 class Diagnostics(models.Model):
-    name = models.CharField(max_length=100)
-    discoloration = models.CharField(max_length=100)
-    deformed = models.TextField(max_length=300)
-    region_affected = models.TextField(max_length=300)
+    name = models.CharField(max_length=100, null=True)
+    discoloration = models.CharField(max_length=100, null=True)
+    deformed = models.TextField(max_length=300, default='None')
+    region_affected = models.TextField(max_length=300, null=True)
     
     def __str__(self):
         return f'{self.name}'
